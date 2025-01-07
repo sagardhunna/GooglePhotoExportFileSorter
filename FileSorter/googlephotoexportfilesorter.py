@@ -30,29 +30,45 @@ import os
 
 # This would then result in files being in reverse order, from the first image you ever took to the most recent
 
-# Step 1, retrieve file date
+# One huge issue is that as I am parsing through the many json file names, MANY of them are associated with a file that 
+# is not in the same folder as it, so they are all scattered
+
+# For example, 1 folder has 1271 files, with 1194 of them being .json files and 78 being other files
+# I also found out that out of those 78 other files, ONLY 48 of them have a matching .json file within the folder
+# this means that the rest of the json files and their matching video/image are scattered throughout 
+# those 20, 10 gb folders.
+
 
 dir_list = os.listdir("/Users/sagardhunna/Desktop/Google Photos BackUp Till 10:14:2024/Takeout-14/Google Photos/Photos from 2024")
 
+print(f'Total file count: {len(dir_list)}\n\n')
+
+extra_files = set()
 file_names = set()
 json_files = set()
 file_name_to_json_dict = {}
-
-print(f'Total file count: {len(dir_list)}\n\n')
 
 for file in dir_list:
     # remove last 5 char's of the file name in case it's a json file, because 
     # the json file and it's associated file have almost the exact same name
     file_last_5 = file[-5:] 
-    if file_last_5 == ".json": # found a json file
-        json_files.add(file) 
-        dir_list.remove(file)
+    if file_last_5.lower() == ".json": # found a json file
+        json_files.add(file)
+    else:
+        extra_files.add(file)
 
 print(f'Count of json files: {len(json_files)}')
-print(f'Count of non-json files: {len(dir_list)}\n\n')
+print(f'Count of non-json files: {len(extra_files)}\n\n')
+
+total_json_files_that_are_associated_with_a_real_file = 0
+for file in json_files:
+    if file[:-5] in extra_files:
+        total_json_files_that_are_associated_with_a_real_file += 1
+
+
+print(f'Total json files that are associated with an actual file are: {total_json_files_that_are_associated_with_a_real_file}')
 
 # dir_list should only hold non-json files
-extra_files = set()
 
 for file in dir_list: 
     # iterate over files left in dir_list, see if there is an associated file in json_files
@@ -64,3 +80,4 @@ for file in dir_list:
 print(f'Count of json files: {len(json_files)}')
 print(f'Count of non-json files with an associated json file: {len(dir_list)}')
 print(f'Count of files that dont have an associated json file: {len(extra_files)}\n\n')
+
