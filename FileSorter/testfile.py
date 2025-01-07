@@ -1,8 +1,17 @@
-word = "helloworld.JSON"
+import os
+import shutil
 
-print(word[:-5])
+origin = "/Users/sagardhunna/Desktop/PracticeFolder/"
+target = "/Users/sagardhunna/Desktop/PracticeFolder2/"
 
-if word[-5:].lower() == '.json':
-    print("LAST 5 LETTERS ARE .JSON")
-else:
-    print("last 5 letters are not .JSON")
+dir_list = os.listdir(origin)
+
+
+for file in dir_list:
+    if file == ".DS_Store":
+        continue
+    else:
+        shutil.copy(origin+file, target+file)
+        # This will copy the file from origin, to target, and will ensure no duplicates
+        # The way it works is that if there is a file with the same name, it will just overwrite it
+

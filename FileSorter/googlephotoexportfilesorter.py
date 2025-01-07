@@ -38,9 +38,25 @@ import os
 # this means that the rest of the json files and their matching video/image are scattered throughout 
 # those 20, 10 gb folders.
 
+# So the new plan is, since all those 20 folders are in a larger folder, I will create a new folder called 'GooglePhotos'
+# and write a script, that for every folder, transfer all the data from those folders into that mega folder.
+# After that is complete, then the renaming process will begin and so will the sorting.
 
-dir_list = os.listdir("/Users/sagardhunna/Desktop/Google Photos BackUp Till 10:14:2024/Takeout-14/Google Photos/Photos from 2024")
+# Step 1 Access Main Folder Directory
+dir_list = os.listdir("/Users/sagardhunna/Desktop/Google Photos BackUp Till 10:14:2024")
 
+
+
+for folder in dir_list:
+    if folder[:7].lower() != "takeout":
+        dir_list.remove(folder)
+
+print(f'Amount of Takeout folders: {len(dir_list)}')
+
+
+
+
+'''
 print(f'Total file count: {len(dir_list)}\n\n')
 
 extra_files = set()
@@ -81,3 +97,4 @@ print(f'Count of json files: {len(json_files)}')
 print(f'Count of non-json files with an associated json file: {len(dir_list)}')
 print(f'Count of files that dont have an associated json file: {len(extra_files)}\n\n')
 
+'''

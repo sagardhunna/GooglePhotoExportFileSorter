@@ -1,0 +1,37 @@
+import os
+
+
+
+
+origin = "/Users/sagardhunna/Desktop/GooglePhotos/"
+
+file_list = os.listdir(origin)
+
+print(len(file_list))
+
+for file in file_list:
+    os.rename(origin + file, origin + file.lower())
+
+origin = "/Users/sagardhunna/Desktop/Google Photos BackUp Till 10:14:2024/"
+
+dir_list = os.listdir(origin) # Contains all Takeout Folders
+
+for main_folder in dir_list:
+    if main_folder.lower() == ".ds_store":
+        continue
+    else:
+        source = main_folder + '/' + 'Google Photos'
+        take_out_dir_list = os.listdir(origin + source)
+        for folder in take_out_dir_list:
+            if os.path.isdir(origin + source + '/' + folder):
+                print(f'{folder} is a folder')
+                folder_with_files = os.listdir(origin + source + '/' + folder)
+                print(f'{folder} contains {len(folder_with_files)}')
+
+                for file in folder_with_files:
+                    os.rename(origin + source + '/' + folder + '/' + file, origin + source + '/' + folder + '/' + file.lower())
+            else:
+                print(f'{folder} is a file')
+
+
+print("Finished making all files lowercase")
