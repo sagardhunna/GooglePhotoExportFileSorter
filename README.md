@@ -27,3 +27,11 @@ Then I would change the File_A's name to be 202209231529, and lets say File_B's 
 File_B would come before File_A as it's value is less
 
 This would then result in files being in reverse order, from the first image you ever took to the most recent
+
+One huge issue is that as I am parsing through the many json file names, MANY of them are associated with a file that 
+is not in the same folder as it, so they are all scattered
+
+For example, 1 folder has 1271 files, with 1194 of them being .json files and 78 being other files
+I also found out that out of those 78 other files, ONLY 48 of them have a matching .json file within the folder
+this means that the rest of the json files and their matching video/image are scattered throughout 
+those 20, 10 gb folders.
